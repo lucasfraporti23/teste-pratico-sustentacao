@@ -6,24 +6,28 @@ using teste_pratico_sustentacao.Repository;
 
 namespace teste_pratico_sustentacao.Service
 {
-    public class ViagemService: IViagemService
+    public class ViagemService : IViagemService
     {
         public string Salvar(Viagem dados)
         {
             var retorno = "";
             try
             {
-                var motoristaRepository = new ViagemRepository();
+                var viagemRepository = new ViagemRepository();
                 if (dados != null)
                 {
                     if (dados.Id == 0)
                     {
-                        var motoristaValido = motoristaRepository.MotoristaValido(dados.MotoristaId);
+                        var motoristaValido = viagemRepository.MotoristaValido(dados.MotoristaId);
                         if (!motoristaValido)
                             retorno = "Informe um motorista válido!";
+                        if (string.IsNullOrEmpty(retorno))
+                            viagemRepository.Save(dados);
                     }
-                    if (string.IsNullOrEmpty(retorno))
-                        motoristaRepository.Save(dados);
+                    else
+                    {
+                        viagemRepository.Update(dados);
+                    }
                 }
                 else
                     retorno = "Os dados da viagem não foram informados.";

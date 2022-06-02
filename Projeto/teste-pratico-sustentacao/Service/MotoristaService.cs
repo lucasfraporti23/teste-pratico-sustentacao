@@ -21,9 +21,13 @@ namespace teste_pratico_sustentacao.Service
                         var placaRepetida = motoristaRepository.VerificarPlacaRepetida(dados.Placa);
                         if (placaRepetida)
                             retorno = "A placa informada já existe!";
+                        if (string.IsNullOrEmpty(retorno))
+                            motoristaRepository.Save(dados);
                     }
-                    if (string.IsNullOrEmpty(retorno))
-                        motoristaRepository.Save(dados);
+                    else
+                    {
+                        motoristaRepository.Update(dados);
+                    }
                 }
                 else
                     retorno = "Os dados do motorista não foram informados.";

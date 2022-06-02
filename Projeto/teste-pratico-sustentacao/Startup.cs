@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using teste_pratico_sustentacao.Interface;
+using teste_pratico_sustentacao.Service;
 
 namespace teste_pratico_sustentacao
 {
@@ -23,6 +25,8 @@ namespace teste_pratico_sustentacao
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IMotoristaService, MotoristaService>();
+            services.AddTransient<IViagemService, ViagemService>();
             services.AddControllersWithViews();
         }
 

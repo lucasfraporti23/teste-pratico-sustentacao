@@ -57,7 +57,10 @@ namespace teste_pratico_sustentacao.Repository
                             motorista.Marca = reader["MARCA"].ToString();
                             motorista.Modelo = reader["MODELO"].ToString();
                             motorista.Placa = reader["PLACA"].ToString();
-                            motorista.Eixos = Convert.ToInt32(reader["EIXOS"].ToString());
+                            if (reader["EIXOS"].ToString() != "")
+                                motorista.Eixos = Convert.ToInt32(reader["EIXOS"].ToString());
+                            else
+                                motorista.Eixos = 0;
                             motorista.Rua = reader["RUA"].ToString();
                             motorista.Numero = reader["NUMERO"].ToString();
                             motorista.Cidade = reader["CIDADE"].ToString();
@@ -94,8 +97,10 @@ namespace teste_pratico_sustentacao.Repository
                             motorista.Marca = reader["MARCA"].ToString();
                             motorista.Modelo = reader["MODELO"].ToString();
                             motorista.Placa = reader["PLACA"].ToString();
-                            motorista.Eixos = Convert.ToInt32(reader["EIXOS"].ToString());
-                            motorista.Rua = reader["RUA"].ToString();
+                            if (reader["EIXOS"].ToString() != "")
+                                motorista.Eixos = Convert.ToInt32(reader["EIXOS"].ToString());
+                            else
+                                motorista.Eixos = 0; motorista.Rua = reader["RUA"].ToString();
                             motorista.Numero = reader["NUMERO"].ToString();
                             motorista.Cidade = reader["CIDADE"].ToString();
                             motorista.Estado = reader["ESTADO"].ToString();
@@ -113,7 +118,7 @@ namespace teste_pratico_sustentacao.Repository
         {
             using (var conn = new AcessoBanco().Conexao)
             {
-                string sql = "INSERT INTO MOTORISTA ( ID, NOME, SOBRENOME, MARCA, MODELO, PLACA, EIXOS, RUA, NUMERO, CIDADE, ESTADO, CEP, PAIS FROM MOTORISTA ) VALUES (:NOME, :SOBRENOME, :MARCA, :MODELO, :PLACA, :EIXOS, :RUA, :NUMERO, :CIDADE, :ESTADO, :CEP, :PAIS FROM MOTORISTA )";
+                string sql = "INSERT INTO MOTORISTA ( NOME, SOBRENOME, MARCA, MODELO, PLACA, EIXOS, RUA, NUMERO, CIDADE, ESTADO, CEP, PAIS) VALUES (:NOME, :SOBRENOME, :MARCA, :MODELO, :PLACA, :EIXOS, :RUA, :NUMERO, :CIDADE, :ESTADO, :CEP, :PAIS)";
                 OracleCommand cmd = new OracleCommand(sql, conn);
                 cmd.Parameters.Add(new OracleParameter("NOME", entity.Nome));
                 cmd.Parameters.Add(new OracleParameter("SOBRENOME", entity.Sobrenome));

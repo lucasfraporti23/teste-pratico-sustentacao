@@ -26,7 +26,7 @@ namespace teste_pratico_sustentacao.Repository
         }
         public List<ViagemAuxiliar> GetAll(string filtro = "")
         {
-            var sql = @$"SELECT V.Id, V.DATAVIAGEM, V.LOCALENTREGA, V.LOCALSAIDA, V.KM, M.NOME, M.PLACA  FROM VIAGEM V
+            var sql = @$"SELECT V.Id, V.DATAVIAGEM, V.LOCALENTREGA, V.LOCALSAIDA, V.KM,(M.NOME ||' '|| M.SOBRENOME) NOME, M.PLACA, V.MOTORISTAID  FROM VIAGEM V
                          INNER JOIN MOTORISTA M ON M.ID = V.MOTORISTAID
                WHERE DATAVIAGEM   LIKE '%{filtro}%'
                   OR LOCALENTREGA LIKE '%{filtro}%'
@@ -54,6 +54,7 @@ namespace teste_pratico_sustentacao.Repository
                             viagem.Km = Convert.ToInt32(reader["KM"].ToString());
                             viagem.Nome = reader["NOME"].ToString();
                             viagem.Placa = reader["PLACA"].ToString();
+                            viagem.MotoristaId = Convert.ToInt32(reader["MOTORISTAID"].ToString());
 
                             listaViagem.Add(viagem);
                         }
@@ -65,8 +66,8 @@ namespace teste_pratico_sustentacao.Repository
         }
         public ViagemAuxiliar GetById(int id)
         {
-            var sql = @$"SELECT V.ID, V.DATAVIAGEM, V.LOCALENTREGA, V.LOCALSAIDA, V.KM, M.NOME, M.PLACA  FROM VIAGEM V
-                         INNER JOIN MOTORISTA M ON M.ID = V.MOTORISTAID";
+            var sql = @$"SELECT V.ID, V.DATAVIAGEM, V.LOCALENTREGA, V.LOCALSAIDA, V.KM, (M.NOME ||' '|| M.SOBRENOME) NOME, M.PLACA, V.MOTORISTAID  FROM VIAGEM V
+                         INNER JOIN MOTORISTA M ON M.ID = V.MOTORISTAID WHERE V.ID = :ID";
             var viagem = new ViagemAuxiliar();
 
             using (var conn = new AcessoBanco().Conexao)
@@ -74,6 +75,7 @@ namespace teste_pratico_sustentacao.Repository
                 conn.Open();
                 using (var cmd = new OracleCommand(sql, conn))
                 {
+                    cmd.Parameters.Add(new OracleParameter("ID", id));
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -85,6 +87,8 @@ namespace teste_pratico_sustentacao.Repository
                             viagem.Km = Convert.ToInt32(reader["KM"].ToString());
                             viagem.Nome = reader["NOME"].ToString();
                             viagem.Placa = reader["PLACA"].ToString();
+                            viagem.MotoristaId = Convert.ToInt32(reader["MOTORISTAID"].ToString());
+
                         }
                         conn.Close();
                     }

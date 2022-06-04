@@ -1,37 +1,37 @@
 ﻿@model IEnumerable<teste_pratico_sustentacao.Models.ViagemAuxiliar>
 
 @{
-    ViewData["Title"] = "Lista de Viagems";
+    ViewData["Title"] = "Lista de Viagens";
 }
 
-<div class="d-inline h4 float-left">Viagems</div>
+<div class="d-inline h4 float-left">Viagens</div>
 
 <table class="table table-sm table-striped">
     <thead class="thead-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Placa)
+                Placa
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Nome
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataViagem)
+                Data da Viagem
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LocalEntrega)
+                Local da Entrega
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LocalSaida)
+                Local da Saida
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Km)
+                Km
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MotoristaId)
+                Motorista
             </th>
             <th>
                 <a asp-action="Create" class="btn btn-success btn-md float-right">Novo</a>
@@ -43,13 +43,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Placa)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DataViagem)

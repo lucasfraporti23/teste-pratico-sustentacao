@@ -1,0 +1,77 @@
+﻿@model teste_pratico_sustentacao.Models.Viagem
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h4>Deletar</h4>
+
+<h1>Viagem</h1>
+
+<h3>Você tem certeza que deseja excluir essa Viagem?</h3>
+<div>
+    <hr />
+    <form asp-action="Delete">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label">Local de Saída </label>
+                    <input disabled asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="LocalSaida" class="control-label">Local de Saída </label>
+                    <input disabled asp-for="LocalSaida" class="form-control" />
+                    <span asp-validation-for="LocalSaida" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="LocalEntrega" class="control-label">Local de Entrega</label>
+                    <input disabled asp-for="LocalEntrega" class="form-control" />
+                    <span asp-validation-for="LocalEntrega" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="DataViagem" class="control-label">Data da Viagem</label>
+                    <input disabled asp-for="DataViagem" class="form-control" />
+                    <span asp-validation-for="DataViagem" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Km" class="control-label">Distância da viagem</label>
+                    <input disabled asp-for="Km" class="form-control" />
+                    <span asp-validation-for="Km" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="MotoristaId" class="control-label">Motorista</label>
+                    <input disabled asp-for="MotoristaId" class="form-control" />
+                    <span asp-validation-for="MotoristaId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <hr />
+                <div class="form-group">
+                    <div class="btn-group float-right">
+                        <a class="btn btn-danger" asp-action="Index">Voltar</a>
+                        <button class="btn btn-warning"><input type="submit" value="Delete" hidden />Excluir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

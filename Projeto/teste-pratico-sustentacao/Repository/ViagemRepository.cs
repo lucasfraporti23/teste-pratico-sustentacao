@@ -27,7 +27,7 @@ namespace teste_pratico_sustentacao.Repository
         public List<ViagemAuxiliar> GetAll(string filtro = "")
         {
             var sql = @$"SELECT V.Id, V.DATAVIAGEM, V.LOCALENTREGA, V.LOCALSAIDA, V.KM, M.NOME, M.PLACA  FROM VIAGEM V
-                         INNER JOIN MOTORISTA M ON m.ID = V.MOTORISTAID   FROM VEICULO
+                         INNER JOIN MOTORISTA M ON M.ID = V.MOTORISTAID
                WHERE DATAVIAGEM   LIKE '%{filtro}%'
                   OR LOCALENTREGA LIKE '%{filtro}%'
                   OR LOCALSAIDA   LIKE '%{filtro}%'
@@ -65,9 +65,8 @@ namespace teste_pratico_sustentacao.Repository
         }
         public ViagemAuxiliar GetById(int id)
         {
-            var sql = @$"SELECT V.Id, V.DATAVIAGEM, V.LOCALENTREGA, V.LOCALSAIDA, V.KM, M.NOME, M.PLACA  FROM VIAGEM V
-                         INNER JOIN MOTORISTA M ON m.ID = V.MOTORISTAID   FROM VEICULO
-               WHERE ID = :ID";
+            var sql = @$"SELECT V.ID, V.DATAVIAGEM, V.LOCALENTREGA, V.LOCALSAIDA, V.KM, M.NOME, M.PLACA  FROM VIAGEM V
+                         INNER JOIN MOTORISTA M ON M.ID = V.MOTORISTAID";
             var viagem = new ViagemAuxiliar();
 
             using (var conn = new AcessoBanco().Conexao)
@@ -97,7 +96,7 @@ namespace teste_pratico_sustentacao.Repository
         {
             using (var conn = new AcessoBanco().Conexao)
             {
-                string sql = "INSERT INTO VIAGEM (DATAVIAGEM, LOCALENTREGA, LOCALSAIDA, KM, MOTORISTAID) VALUES (:DATAVIAGEM, :LOCALENTREGA, :KM, :MOTORISTAID)";
+                string sql = "INSERT INTO VIAGEM (DATAVIAGEM, LOCALENTREGA, LOCALSAIDA, KM, MOTORISTAID) VALUES (:DATAVIAGEM, :LOCALENTREGA, :LOCALSAIDA, :KM, :MOTORISTAID)";
                 OracleCommand cmd = new OracleCommand(sql, conn);
                 cmd.Parameters.Add(new OracleParameter("DATAVIAGEM", entity.DataViagem));
                 cmd.Parameters.Add(new OracleParameter("LOCALENTREGA", entity.LocalEntrega));

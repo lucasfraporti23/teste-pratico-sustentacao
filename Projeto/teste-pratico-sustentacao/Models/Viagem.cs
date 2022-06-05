@@ -10,5 +10,6 @@ namespace teste_pratico_sustentacao.Models
         public string LocalSaida { get; set; }
         public decimal Km { get; set; }
         public int MotoristaId { get; set; }
+
     }
 }

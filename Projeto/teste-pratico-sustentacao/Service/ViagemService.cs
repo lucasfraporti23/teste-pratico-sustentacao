@@ -18,11 +18,7 @@ namespace teste_pratico_sustentacao.Service
                 {
                     if (dados.Id == 0)
                     {
-                        var motoristaValido = viagemRepository.MotoristaValido(dados.MotoristaId);
-                        if (!motoristaValido)
-                            retorno = "Informe um motorista válido!";
-                        if (string.IsNullOrEmpty(retorno))
-                            viagemRepository.Save(dados);
+                        viagemRepository.Save(dados);
                     }
                     else
                     {
@@ -31,19 +27,6 @@ namespace teste_pratico_sustentacao.Service
                 }
                 else
                     retorno = "Os dados da viagem não foram informados.";
-            }
-            catch (Exception erro)
-            {
-                retorno = erro.Message;
-            }
-            return retorno;
-        }
-        public string Delete(Viagem dados)
-        {
-            var retorno = "";
-            try
-            {
-                new ViagemRepository().DeleteById(dados.Id);
             }
             catch (Exception erro)
             {
@@ -68,9 +51,13 @@ namespace teste_pratico_sustentacao.Service
         {
             return new ViagemRepository().GetAll(filtro);
         }
-        public Viagem GetById(int id)
+        public ViagemAuxiliar GetById(int id)
         {
             return new ViagemRepository().GetById(id);
+        }
+        public List<Motorista> CarregarMotoristas()
+        {
+            return new MotoristaRepository().CarregarMotoristas();
         }
     }
 }

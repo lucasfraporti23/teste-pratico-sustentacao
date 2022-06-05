@@ -26,7 +26,18 @@ namespace teste_pratico_sustentacao.Controllers
 
         public ActionResult Create()
         {
-            return View(new Viagem());
+            var retorno = new ViagemAuxiliar();
+            retorno.BuscaMotorista = new BuscaMotorista();
+
+            retorno.BuscaMotorista.ListaMotorista.Add(new Motorista());
+
+            var listaDeMotorista = _viagemService.CarregarMotoristas();
+
+            foreach (var item in listaDeMotorista)
+            {
+                retorno.BuscaMotorista.ListaMotorista.Add(item);
+            }
+            return View(retorno);
         }
 
         [HttpPost]
@@ -49,7 +60,15 @@ namespace teste_pratico_sustentacao.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View(_viagemService.GetById(id));
+            var retorno = _viagemService.GetById(id);
+            retorno.BuscaMotorista = new BuscaMotorista();
+            retorno.BuscaMotorista.ListaMotorista.Add(new Motorista());
+            var listaDeMotoristas = _viagemService.CarregarMotoristas();
+            foreach (var item in listaDeMotoristas)
+            {
+                retorno.BuscaMotorista.ListaMotorista.Add(item);
+            }
+            return View(retorno);
         }
 
         [HttpPost]
@@ -77,8 +96,11 @@ namespace teste_pratico_sustentacao.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Viagem viagem)
-        {
-            _viagemService.Delete(viagem);
+        {  
+            var retorno = _viagemService.DeleteById(viagem.Id);
+            if (retorno != "")
+                throw new Exception(retorno);
+
             return RedirectToAction("Index");
         }
     }

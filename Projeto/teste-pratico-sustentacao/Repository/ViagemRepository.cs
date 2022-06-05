@@ -26,7 +26,7 @@ namespace teste_pratico_sustentacao.Repository
         }
         public List<ViagemAuxiliar> GetAll(string filtro = "")
         {
-            var sql = @$"SELECT V.Id, V.DATAVIAGEM, V.LOCALENTREGA, V.LOCALSAIDA, V.KM,(M.NOME ||' '|| M.SOBRENOME) NOME, M.PLACA, V.MOTORISTAID  FROM VIAGEM V
+            var sql = @$"SELECT V.Id, V.DATAVIAGEM, V.LOCALENTREGA, V.LOCALSAIDA, V.KM, (M.NOME ||' '|| M.SOBRENOME) NOME, M.PLACA, V.MOTORISTAID  FROM VIAGEM V
                          INNER JOIN MOTORISTA M ON M.ID = V.MOTORISTAID
                WHERE DATAVIAGEM   LIKE '%{filtro}%'
                   OR LOCALENTREGA LIKE '%{filtro}%'
@@ -51,7 +51,7 @@ namespace teste_pratico_sustentacao.Repository
                             viagem.DataViagem = Convert.ToDateTime(reader["DATAVIAGEM"].ToString());
                             viagem.LocalEntrega = reader["LOCALENTREGA"].ToString();
                             viagem.LocalSaida = reader["LOCALSAIDA"].ToString();
-                            viagem.Km = Convert.ToInt32(reader["KM"].ToString());
+                            viagem.Km = Convert.ToDecimal(reader["KM"].ToString());
                             viagem.Nome = reader["NOME"].ToString();
                             viagem.Placa = reader["PLACA"].ToString();
                             viagem.MotoristaId = Convert.ToInt32(reader["MOTORISTAID"].ToString());
@@ -84,7 +84,7 @@ namespace teste_pratico_sustentacao.Repository
                             viagem.DataViagem = Convert.ToDateTime(reader["DATAVIAGEM"].ToString());
                             viagem.LocalEntrega = reader["LOCALENTREGA"].ToString();
                             viagem.LocalSaida = reader["LOCALSAIDA"].ToString();
-                            viagem.Km = Convert.ToInt32(reader["KM"].ToString());
+                            viagem.Km = Convert.ToDecimal(reader["KM"].ToString());
                             viagem.Nome = reader["NOME"].ToString();
                             viagem.Placa = reader["PLACA"].ToString();
                             viagem.MotoristaId = Convert.ToInt32(reader["MOTORISTAID"].ToString());
@@ -106,7 +106,7 @@ namespace teste_pratico_sustentacao.Repository
                 cmd.Parameters.Add(new OracleParameter("LOCALENTREGA", entity.LocalEntrega));
                 cmd.Parameters.Add(new OracleParameter("LOCALSAIDA", entity.LocalSaida));
                 cmd.Parameters.Add(new OracleParameter("KM", entity.Km));
-                cmd.Parameters.Add(new OracleParameter("MOTORISTAID", entity.MotoristaId));
+               cmd.Parameters.Add(new OracleParameter("MOTORISTAID", entity.MotoristaId));
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -132,31 +132,7 @@ namespace teste_pratico_sustentacao.Repository
                 conn.Close();
             }
         }
-        public bool MotoristaValido(int motoristaId)
-        {
-            var sql = "SELECT COUNT(1) QTD FROM MOTORISTA WHERE ID = :ID";
-            var retorno = false;
-
-            using (var conn = new AcessoBanco().Conexao)
-            {
-                conn.Open();
-                using (var cmd = new OracleCommand(sql, conn))
-                {
-                    cmd.Parameters.Add(new OracleParameter("ID", motoristaId));
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var quantidade = Convert.ToInt32(reader["QTD"].ToString());
-                            retorno = (quantidade > 0);
-                        }
-                        conn.Close();
-                    }
-                }
-            }
-
-            return retorno;
-        }
     }
 }
+
 

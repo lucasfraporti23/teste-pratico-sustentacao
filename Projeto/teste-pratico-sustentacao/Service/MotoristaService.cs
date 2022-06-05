@@ -85,9 +85,9 @@ namespace teste_pratico_sustentacao.Service
             }
             return retorno;
         }
-        public List<Motorista> GetAll(string filtro = "")
+        public List<Motorista> GetAll()
         {
-            return new MotoristaRepository().GetAll(filtro);
+            return new MotoristaRepository().GetAll();
         }
         public Motorista GetById(int id)
         {

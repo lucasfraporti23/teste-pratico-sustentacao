@@ -4,5 +4,7 @@
     {
         public string Nome { get; set; }
         public string Placa { get; set; }
+        public BuscaMotorista BuscaMotorista { get; set; }
+
     }
 }

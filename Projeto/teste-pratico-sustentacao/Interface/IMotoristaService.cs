@@ -9,7 +9,7 @@ namespace teste_pratico_sustentacao.Interface
         public string PermiteDeletar(int id);
         public string Delete(Motorista dados);
         public string DeleteById(int id);
-        public List<Motorista> GetAll(string filtro = "");
+        public List<Motorista> GetAll();
         public Motorista GetById(int id);
     }
 }

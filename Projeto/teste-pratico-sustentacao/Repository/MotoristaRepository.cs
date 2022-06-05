@@ -23,21 +23,9 @@ namespace teste_pratico_sustentacao.Repository
                 }
             }
         }
-        public List<Motorista> GetAll(string filtro = "")
+        public List<Motorista> GetAll()
         {
-            var sql = @$"SELECT ID, NOME, SOBRENOME, MARCA, MODELO, PLACA, EIXOS, RUA, NUMERO, CIDADE, ESTADO, CEP, PAIS  FROM MOTORISTA
-            WHERE NOME      LIKE '%{filtro}%'
-               OR SOBRENOME LIKE '%{filtro}%'
-               OR MARCA     LIKE '%{filtro}%'
-               OR MODELO    LIKE '%{filtro}%'
-               OR PLACA     LIKE '%{filtro}%'
-               OR EIXOS     LIKE '%{filtro}%'
-               OR RUA       LIKE '%{filtro}%'
-               OR NUMERO    LIKE '%{filtro}%'
-               OR CIDADE    LIKE '%{filtro}%'
-               OR ESTADO    LIKE '%{filtro}%'
-               OR CEP       LIKE '%{filtro}%'
-               OR PAIS      LIKE '%{filtro}%' ORDER BY ID";
+            var sql = @$"SELECT ID, NOME, SOBRENOME, MARCA, MODELO, PLACA, EIXOS, RUA, NUMERO, CIDADE, ESTADO, CEP, PAIS  FROM MOTORISTA ORDER BY ID";
             var listaMotorista = new List<Motorista>();
 
             using (var conn = new AcessoBanco().Conexao)
@@ -100,7 +88,8 @@ namespace teste_pratico_sustentacao.Repository
                             if (reader["EIXOS"].ToString() != "")
                                 motorista.Eixos = Convert.ToInt32(reader["EIXOS"].ToString());
                             else
-                                motorista.Eixos = 0; motorista.Rua = reader["RUA"].ToString();
+                                motorista.Eixos = 0;
+                            motorista.Rua = reader["RUA"].ToString();
                             motorista.Numero = reader["NUMERO"].ToString();
                             motorista.Cidade = reader["CIDADE"].ToString();
                             motorista.Estado = reader["ESTADO"].ToString();
@@ -215,7 +204,33 @@ namespace teste_pratico_sustentacao.Repository
 
             return retorno;
         }
-    
-        
+        public List<Motorista> CarregarMotoristas()
+        {
+            var sql = "SELECT ID, (NOME ||' '||SOBRENOME||' - '||PLACA) NOME FROM MOTORISTA ORDER BY ID";
+            var listaMotorista = new List<Motorista>();
+
+            using (var conn = new AcessoBanco().Conexao)
+            {
+                conn.Open();
+                using (var cmd = new OracleCommand(sql, conn))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var motorista = new Motorista();
+                            motorista.Id = Convert.ToInt32(reader["ID"].ToString());
+                            motorista.Nome = reader["NOME"].ToString();
+                            listaMotorista.Add(motorista);
+                        }
+                        conn.Close();
+                    }
+                }
+            }
+            return listaMotorista;
+        }
+
+
+
     }
 }

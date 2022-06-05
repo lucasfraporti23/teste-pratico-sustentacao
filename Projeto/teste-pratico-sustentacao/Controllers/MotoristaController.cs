@@ -78,7 +78,7 @@ namespace teste_pratico_sustentacao.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Motorista motorista)
         {
-            _motoristaService.Delete(motorista);
+            _motoristaService.DeleteById(motorista.Id);
             return RedirectToAction("Index");
         }
     }

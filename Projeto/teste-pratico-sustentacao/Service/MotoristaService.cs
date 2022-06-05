@@ -53,22 +53,6 @@ namespace teste_pratico_sustentacao.Service
 
             return retorno;
         }
-        public string Delete(Motorista dados)
-        {
-            var retorno = "";
-            try
-            {
-                retorno = PermiteDeletar(dados.Id);
-
-                if (string.IsNullOrEmpty(retorno))
-                    new MotoristaRepository().DeleteById(dados.Id);
-            }
-            catch (Exception erro)
-            {
-                retorno = erro.Message;
-            }
-            return retorno;
-        }
         public string DeleteById(int id)
         {
             var retorno = "";

@@ -7,7 +7,7 @@ namespace teste_pratico_sustentacao.Interface
     {
         public string Salvar(Viagem dados);
         public string DeleteById(int id);
-        public List<ViagemAuxiliar> GetAll(string filtro = "");
+        public List<ViagemAuxiliar> GetAll();
         public ViagemAuxiliar GetById(int id);
         public List<Motorista> CarregarMotoristas();
     }

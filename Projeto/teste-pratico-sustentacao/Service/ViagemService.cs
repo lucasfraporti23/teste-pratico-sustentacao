@@ -47,9 +47,9 @@ namespace teste_pratico_sustentacao.Service
             }
             return retorno;
         }
-        public List<ViagemAuxiliar> GetAll(string filtro = "")
+        public List<ViagemAuxiliar> GetAll()
         {
-            return new ViagemRepository().GetAll(filtro);
+            return new ViagemRepository().GetAll();
         }
         public ViagemAuxiliar GetById(int id)
         {

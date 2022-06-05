@@ -24,16 +24,10 @@ namespace teste_pratico_sustentacao.Repository
                 }
             }
         }
-        public List<ViagemAuxiliar> GetAll(string filtro = "")
+        public List<ViagemAuxiliar> GetAll()
         {
             var sql = @$"SELECT V.Id, V.DATAVIAGEM, V.LOCALENTREGA, V.LOCALSAIDA, V.KM, (M.NOME ||' '|| M.SOBRENOME) NOME, M.PLACA, V.MOTORISTAID  FROM VIAGEM V
-                         INNER JOIN MOTORISTA M ON M.ID = V.MOTORISTAID
-               WHERE DATAVIAGEM   LIKE '%{filtro}%'
-                  OR LOCALENTREGA LIKE '%{filtro}%'
-                  OR LOCALSAIDA   LIKE '%{filtro}%'
-                  OR KM           LIKE '%{filtro}%'
-                  OR NOME         LIKE '%{filtro}%'
-                  OR PLACA        LIKE '%{filtro}%' ORDER BY ID";
+                         INNER JOIN MOTORISTA M ON M.ID = V.MOTORISTAID ORDER BY ID";
 
             var listaViagem = new List<ViagemAuxiliar>();
 
